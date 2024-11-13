@@ -1,4 +1,4 @@
-const EventEmitter = require("events");
+import EventEmitter from "events";
 type EventEmitterInstance = InstanceType<typeof EventEmitter>;
 
 const eventEmitter = new EventEmitter();
