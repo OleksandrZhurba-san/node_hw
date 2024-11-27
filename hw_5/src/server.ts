@@ -15,9 +15,27 @@ function logMessage(message: string, logType: "info" | "error") {
   });
 }
 
+function validateAuthorization(req: IncomingMessage, res: ServerResponse): boolean {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    const errorMessage = `${new Date().toISOString()} - Error: Unauthorized access attempt for ${req.method} ${req.url}\n`;
+    logMessage(errorMessage, "error");
+    res.statusCode = 401;
+    res.end("Unauthorized");
+    return false;
+  }
+  return true;
+}
+
 const server = http.createServer((req: IncomingMessage, res: ServerResponse) => {
   try {
+
     res.setHeader("Content-Type", "text-plain");
+
+    if (!validateAuthorization(req, res)) {
+      return;
+    }
+
     if (req.method === "GET" && req.url === "/") {
       res.statusCode = 200;
       const infoMessage =
