@@ -168,8 +168,8 @@ app.get(
 
 app.post("/change-email/:id", async (req, res) => {
   const id = req.params.id;
-  const { currentPassword, newEmail } = req.body;
-  if (!currentPassword || !newEmail) {
+  const { password, newEmail } = req.body;
+  if (!password || !newEmail) {
     res.status(400).json({ message: "Please fill all inputs" });
   }
   try {
@@ -177,14 +177,11 @@ app.post("/change-email/:id", async (req, res) => {
     if (!user) {
       return res.status(404).json("Invalid credentials");
     }
-    const isPasswordValid = await bcrypt.compare(
-      currentPassword,
-      user.password
-    );
+    const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(404).json({ error: "Invalid credentials" });
     }
-    const hasEmail = await User.findOne({ where: { email: newEmai } });
+    const hasEmail = await User.findOne({ where: { email: newEmail } });
     if (hasEmail) {
       return res.status(422).json({ error: "Email already in use!" });
     }
