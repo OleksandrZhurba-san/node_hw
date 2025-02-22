@@ -1,6 +1,6 @@
 import { Animal } from "./Animal";
 
-class Dog extends Animal {
+export class Dog extends Animal {
   breed: string;
   constructor(name: string, species: string, breed: string) {
     super(name, species);
@@ -12,6 +12,3 @@ class Dog extends Animal {
 }
 
 
-const myDog = new Dog("Chuck", "Dog", "French Bulldog");
-
-myDog.sound();
