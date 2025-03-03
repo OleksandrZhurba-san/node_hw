@@ -1,7 +1,7 @@
 import { capitalize, reverseString } from "./stringUtils";
 import { Finance } from "./finance";
 import { UserManagement } from "./userManagement";
-import { fibonacci } from "./sequencesUtils";
+import { fibonacci, prime } from "./sequencesUtils";
 
 console.log(capitalize("asdasda"));
 console.log(reverseString("olleh"));
@@ -19,3 +19,5 @@ user.switchAdminPermissions();
 console.log(user.getIsSuperAdmin());
 
 console.log(fibonacci(6));
+
+console.log(prime(10));
